@@ -70,7 +70,8 @@ http.DefaultTransport := &http.Client{Transport: &http.Transport{Proxy: http.Pro
 For more robust _HTTP Client_ checkout [this](https://github.com/tufin/blog/go-proxy/common/http.go)
 
 ## Using _Tor_ as an egress proxy inside a _Kubernetes_ cluster
-You might want that some of your services that part of a k8s will run HTTP calls using _Tor_.
+If your application is running inside a k8s cluster, 
+it would be nice to have an HTTP Tor Proxy, so any internal service can use.
 In order to do that let's combine all above, and a little more :)
 
 Our architecture will look like: Pod -> Tor Service -> Cloud
