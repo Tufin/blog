@@ -73,11 +73,7 @@ For more robust _HTTP Client_ checkout [this](https://github.com/tufin/blog/go-p
 You might want that some of your services that part of a k8s will run HTTP calls using _Tor_.
 In order to do that let's combine all above, and a little more :)
 
-Our architecture will look like:
-
-Service A --
-            |--> Tor Service -> Cloud
-Job B     --
+Our architecture will look like: Pod -> Tor Service -> Cloud
 
 ### Deploy a _Tor_ Egress Proxy
 Follow yaml contains k8s service, and deployment for _Tor_ (same docker image as above):
