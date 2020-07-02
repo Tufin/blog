@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: demo
+  namespace: default
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: demo
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      serviceAccountName: demo
+      containers:
+        - name: demo
+          image: myapp
+          imagePullPolicy: Always
+          env:
+            - name: HTTP_PROXY
+              value: socks5://tor:9050

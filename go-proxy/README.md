@@ -116,24 +116,24 @@ spec:
           ports:
             - containerPort: 9050
 ```
-Now, we let's configure a _Go_ service to use our _Tor_ Egress proxy by adding `HTTP_PROXY` header. 
-`HTTP_PROXY` environment variable will be used as the proxy URL.
+Let's configure a _Go_ service to use our _Tor_ Egress proxy by adding `HTTP_PROXY` header:
 ```
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: tor
+  name: demo
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: tor
+        app: demo
     spec:
       containers:
-        - name: tor
-          image: tufin/tor
+        - name: demo
+          image: myapp
           imagePullPolicy: Always
-          ports:
-            - containerPort: 9050
+          env:
+            - name: HTTP_PROXY
+              value: socks5://tor:9050
 ```
