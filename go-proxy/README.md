@@ -116,7 +116,8 @@ spec:
           ports:
             - containerPort: 9050
 ```
-Let's configure a _Go_ service to use our _Tor_ Egress proxy service by adding `HTTP_PROXY` header:
+Let's configure a _Go_ service to use our _Tor_ Egress proxy service by adding `HTTP_PROXY` header.
+So, you don't need to use a special Go HTTP clint, _Go_ client use it by default.
 ```
 apiVersion: extensions/v1beta1
 kind: Deployment
