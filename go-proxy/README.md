@@ -116,7 +116,7 @@ spec:
           ports:
             - containerPort: 9050
 ```
-Let's configure a _Go_ service to use our _Tor_ Egress proxy by adding `HTTP_PROXY` header:
+Let's configure a _Go_ service to use our _Tor_ Egress proxy service by adding `HTTP_PROXY` header:
 ```
 apiVersion: extensions/v1beta1
 kind: Deployment
