@@ -6,7 +6,7 @@ a. Set the `HTTP_PROXY` environment variable:
 $ export HTTP_PROXY="http://ProxyIP:ProxyPort"
 ```
 `HTTP_PROXY` environment variable will be used as the proxy URL for HTTP requests and HTTPS requests,
-unless overridden by HTTPSProxy or NoProxy
+unless overridden by `HTTPS_PROXY` or `NO_PROXY`
     
 b. Creating an HTTP client in _Go_ that MUST use a proxy:
 ```
