@@ -1,5 +1,8 @@
-# How to use an explicit proxy with Go HTTP Client
-There are 3 options to "tell" a _Go_ client to use a proxy:
+# Hiding Go HTTP Client Behind a Proxy or Tor
+
+> _go-proxy_ is implementation of [this article](https://medium.com/@tufin/how-to-use-a-proxy-with-go-http-client-cfc485e9f342)
+
+There are three options to “tell” a _Go_ client to use a proxy:
 
 a. Set the `HTTP_PROXY` environment variable:
 ```bash
