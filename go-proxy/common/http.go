@@ -15,7 +15,7 @@ type HTTPClient struct {
 
 func NewHTTPClient() *HTTPClient {
 
-	path := getEnvWithDefault("HTTP_PROXY", "socks5://127.0.0.1:9050")
+	path := getEnvWithDefault("PROXY", "socks5://127.0.0.1:9050")
 	proxy, err := url.Parse(path)
 	if err != nil {
 		log.Fatalf("failed to parse proxy URL '%s' with '%v'", path, err)
