@@ -77,7 +77,7 @@ If your application is running inside a k8s cluster,
 it would be nice to have an HTTP Tor Proxy, so any internal service can use.
 In order to do that let's combine all above, and a little more :)
 
-Our architecture will look like: Pod -> Tor Service -> Cloud
+![Architecture](https://github.com/Tufin/blog/tree/master/go-proxy/architecture.jpg)
 
 ### Deploy a _Tor_ Egress Proxy
 Follow yaml contains k8s service, and deployment for _Tor_ (same docker image as above):
