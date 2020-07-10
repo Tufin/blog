@@ -48,7 +48,7 @@ func TestS3FileIterator_Iterate(t *testing.T) {
 		downloader:       downloader,
 		tmpDirFilesystem: ".",
 	}.Scan("my-bucket", func(file *os.File) {
-		defer require.NoError(t, file.Close())
+		defer func() { require.NoError(t, file.Close()) }()
 		path := file.Name()
 		require.Equal(t, key[strings.LastIndex(key, "/")+1:],
 			path[strings.LastIndex(path, "/")+1:])

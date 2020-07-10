@@ -15,4 +15,5 @@ The _constructor_ gets AWS region and directory on client filesystem for creatin
 _Iterate_ gets bucket to scan and foreach file it will send a pointer to a downloaded file.
 
 
-
+References:
+- [Go SDK S3 Downloader](https://github.com/aws/aws-sdk-go/blob/09f89e43e1bc1e647cd2bc83cf7cfb55c5be7fb3/service/s3/s3manager/download_test.go#L30)
