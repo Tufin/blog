@@ -11,11 +11,11 @@ tufin.NewScanner("us-east-2", ".").Scan("my-bucket", func(file *os.File) {
 		log.Info(file.Name())
 })
 ```
-The _constructor_ gets AWS region and directory on client filesystem for creating temporary downloaded S3 files. 
-_Scan_ gets a bucket to scan and foreach file it will send a pointer to a downloaded file.
+The _constructor_ gets a region and directory on client filesystem for creating temporary downloaded S3 files. 
+_Scan_ gets a bucket to scan and foreach file it will send a pointer to the downloaded file.
 
 ### S3Scanner Implementation
-Before getting list of file's names in a bucket, we need to create an SDK S3 service in `S3Scanner` constructor:
+Before getting list of file's names in a bucket, we need to create an SDK S3 service in the `S3Scanner` constructor:
 ```go
 func NewS3Scanner(region string, dir string) *S3Scanner {
 
@@ -42,7 +42,7 @@ and not `*S3` like the `s3.New` function returns, so it will be testable.
 
 Note, that when you initialize a new service client without supplying any arguments,
 the AWS SDK attempts to find AWS credentials by using the default credential provider chain.
-In our case `verifyEnv` verifies that `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` has non-empty values:
+In our case `verifyEnv` verifies that `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` have non-empty values:
 ```go
 func verifyEnv(keys ...string) {
 
@@ -54,7 +54,7 @@ func verifyEnv(keys ...string) {
 }
 ```
 
-Now, we can call `ListObjects` using the `svc` we created in the constructor in `Scan` and easily mock it while testing:
+Now, we can call `ListObjects` using the `svc` that has been created in the constructor and easily mock it while testing:
 ```go
 func (fi S3Scanner) Scan(bucket string, touch func(*os.File)) {
 
@@ -112,7 +112,7 @@ func (m *mockS3Client) ListObjects(_ *s3.ListObjectsInput) (*s3.ListObjectsOutpu
 	}, nil
 }
 ```
-As you can see it creates 1 Object with `key` which represents the file path on S3.
+As you can see it inherits from `s3iface.S3API` and creates 1 Object with `key` which represents the file path on S3.
 
 Mocking the `Download` function of `s3manager` will override `svc.Handlers.Send.PushBack`,
 by streaming mock S3 file data:
