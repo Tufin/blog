@@ -3,7 +3,6 @@ package tufin
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -25,8 +24,8 @@ type mockS3Client struct {
 }
 
 const (
-	key  = "access-logs/10Jul202/1.log"
-	data = "This is mock S3 file data"
+	key  = "access-logs/10Jul2020/1.log"
+	data = "This is S3 file mock data"
 )
 
 func (m *mockS3Client) ListObjects(*s3.ListObjectsInput) (*s3.ListObjectsOutput, error) {
@@ -70,11 +69,11 @@ func getMockS3ForDownloader() s3iface.S3API {
 		defer locker.Unlock()
 
 		r.HTTPResponse = &http.Response{
-			StatusCode: 200,
-			Body:       ioutil.NopCloser(bytes.NewReader(payload[:])),
+			StatusCode: http.StatusOK,
+			Body:       ioutil.NopCloser(bytes.NewReader(payload)),
 			Header:     http.Header{},
 		}
-		r.HTTPResponse.Header.Set("Content-Length", fmt.Sprintf("%d", len(payload)))
+		r.HTTPResponse.Header.Set("Content-Length", "1")
 	})
 
 	return svc
