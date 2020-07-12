@@ -19,23 +19,23 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-type mockS3Client struct {
-	s3iface.S3API
-}
-
 const (
 	key  = "access-logs/10Jul2020/1.log"
 	data = "This is S3 file mock data"
 )
 
-func (m *mockS3Client) ListObjects(*s3.ListObjectsInput) (*s3.ListObjectsOutput, error) {
+type mockS3Client struct {
+	s3iface.S3API
+}
+
+func (m *mockS3Client) ListObjects(_ *s3.ListObjectsInput) (*s3.ListObjectsOutput, error) {
 
 	return &s3.ListObjectsOutput{
 		Contents: []*s3.Object{{Key: aws.String(key)}},
 	}, nil
 }
 
-func TestS3FileIterator_Iterate(t *testing.T) {
+func TestS3Scanner_Scan(t *testing.T) {
 
 	downloader := s3manager.NewDownloaderWithClient(getMockS3ForDownloader(), func(d *s3manager.Downloader) {
 		d.Concurrency = 1

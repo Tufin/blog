@@ -70,7 +70,7 @@ func verifyEnv(keys ...string) {
 
 func download(downloader *s3manager.Downloader, bucket string, key *string, s3FilePath string, path string) *os.File {
 
-	log.Debugf("Creating file '%s'...", path)
+	log.Debugf("Creating a file '%s'...", path)
 	ret, err := os.Create(path)
 	if err != nil {
 		log.Fatalf("failed to create file '%s'", path)
