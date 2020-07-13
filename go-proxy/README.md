@@ -46,7 +46,8 @@ For example, if you want to run batch of HTTP calls as part of CI workflow.
 FROM alpine:edge
 RUN apk update && apk add tor
 EXPOSE 9150
-CMD tor -f /etc/torrc
+USER tor
+CMD ["/usr/bin/tor"]
 ```
 2. Create a docker image name _tor_ (optional)
 ```
