@@ -77,7 +77,7 @@ func (fi S3Scanner) Scan(bucket string, touch func(*os.File)) {
 Here is [AWS Go SDK example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/go/example_code/s3/s3_list_objects.go), 
 with the above trick of using `s3iface.S3API` interface you will make it testable :)
 
-Last but not least, we're looping on S3 bucket files, download and call the client `func` on each downloaded file.
+Last but not least, we're looping on S3 bucket files, download and call the client delegate on each downloaded file.
 Let's take a look on how to download file from S3, which is done by the `*s3manager.Downloader` we created in the constructor:
 ```go
 func download(downloader *s3manager.Downloader, bucket string, key *string, s3FilePath string, path string) *os.File {
