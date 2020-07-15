@@ -1,9 +1,9 @@
-# Golang AWS S3 Scanner
+# Testable Golang AWS S3 Scanner
 
 Say you need to analyze files on AWS S3 bucket, 
-mean you want to temporary download each bucket's file, 
+mean you want to temporary download each file, 
 do some work and delete the temporary file from your filesystem.
-That is exactly what `S3Scanner` does, and it is *testable* :)
+This is exactly what `S3Scanner` does, and it is *testable* :)
 
 First, let's take a look on how the client looks like:
 ```go
@@ -15,7 +15,7 @@ The _constructor_ gets a region and directory on client filesystem for creating 
 _Scan_ gets a bucket to scan and foreach file it will send a pointer to the downloaded file.
 
 ### S3Scanner Implementation
-Before getting list of file's names in a bucket, we need to create an SDK S3 service in the `S3Scanner` constructor:
+Before getting list of file's names in a bucket, we need to create S3 service in the `S3Scanner` constructor:
 ```go
 func NewS3Scanner(region string, dir string) *S3Scanner {
 
@@ -74,6 +74,9 @@ func (fi S3Scanner) Scan(bucket string, touch func(*os.File)) {
 	}
 }
 ```
+Here is [AWS Go SDK example](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/go/example_code/s3/s3_list_objects.go), 
+with the above trick of using `s3iface.S3API` interface you will make it testable :)
+
 Last but not least, we're looping on S3 bucket files, download and call the client `func` on each downloaded file.
 Let's take a look on how to download file from S3, which is done by the `*s3manager.Downloader` we created in the constructor:
 ```go
