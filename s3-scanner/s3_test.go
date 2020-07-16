@@ -37,14 +37,9 @@ func (m *mockS3Client) ListObjects(_ *s3.ListObjectsInput) (*s3.ListObjectsOutpu
 
 func TestS3Scanner_Scan(t *testing.T) {
 
-	downloader := s3manager.NewDownloaderWithClient(getMockS3ForDownloader(), func(d *s3manager.Downloader) {
-		d.Concurrency = 1
-		d.PartSize = 1
-	})
-
 	S3Scanner{
 		svc:              &mockS3Client{},
-		downloader:       downloader,
+		downloader:       getDownloader(),
 		tmpDirFilesystem: ".",
 	}.Scan("my-bucket", func(file *os.File) {
 		defer func() { require.NoError(t, file.Close()) }()
@@ -57,7 +52,7 @@ func TestS3Scanner_Scan(t *testing.T) {
 	})
 }
 
-func getMockS3ForDownloader() s3iface.S3API {
+func getDownloader() *s3manager.Downloader {
 
 	var locker sync.Mutex
 	payload := []byte(data)
@@ -76,5 +71,8 @@ func getMockS3ForDownloader() s3iface.S3API {
 		r.HTTPResponse.Header.Set("Content-Length", "1")
 	})
 
-	return svc
+	return s3manager.NewDownloaderWithClient(svc, func(d *s3manager.Downloader) {
+		d.Concurrency = 1
+		d.PartSize = 1
+	})
 }
