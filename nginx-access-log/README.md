@@ -1,6 +1,6 @@
 # Sending Nginx Access Logs to a Golang Server in UDP
 
-Implementation of [this article](TBD)
+Implementation of [this article](https://tufin.medium.com/sending-nginx-access-logs-to-a-golang-server-over-syslog-98b9108f40e1)
 
 #### Running nginx using docker
 ```
