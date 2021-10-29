@@ -1,0 +1,41 @@
+<html lang="en">
+    <body>
+        <script>
+            function goToWhatsApp() {
+                const phone = refit(document.getElementById("nPhone").value);
+                if (len(phone) !== 9) {
+                    alert("Invalid number: " + len(phone));
+                } else {
+                    window.location.href = 'http://api.whatsapp.com/send?phone=972' + phone
+                }
+            }
+
+            function refit(phone) {
+                if (phone.charAt(0) === "0") {
+                    return phone.substring(1);
+                }
+                return phone
+            }
+
+            function len(phone) {
+                let size = 0, key = -1;
+                for (key in phone) {
+                    if (phone.hasOwnProperty(key)) {
+                        size++;
+                    }
+                }
+                return size;
+            }
+        </script>
+
+        <br>
+        <input autofocus
+               type="number"
+               id="nPhone"
+               onkeydown = "if (event.keyCode == 13)
+                                    document.getElementById('btnWhatsApp').click()"/>
+        <button id="btnWhatsapp"
+                type="button"
+                onclick="goToWhatsApp()">WhatsApp</button>
+    </body>
+</html>
