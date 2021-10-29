@@ -1,13 +1,26 @@
 <html lang="en">
     <body>
         <script>
+            window.onload = function () {
+                document.getElementById('lblCode').innerHTML = '+' + getCode();
+            }
+
             function goToWhatsApp() {
                 const phone = refit(document.getElementById("nPhone").value);
                 if (len(phone) !== 9) {
-                    alert("Invalid number: " + len(phone));
+                    alert("Invalid number :(");
                 } else {
-                    window.location.href = 'http://api.whatsapp.com/send?phone=972' + phone
+                    window.location.href = 'http://api.whatsapp.com/send?phone=' + getCode() + phone
                 }
+            }
+
+            function getCode() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const code = urlParams.get('code');
+                if (code !== null && code !== "") {
+                    return code
+                }
+                return "972"
             }
 
             function refit(phone) {
@@ -29,12 +42,12 @@
         </script>
 
         <br>
+        <label id="lblCode"></label>
         <input autofocus
                type="number"
                id="nPhone"
-               onkeydown = "if (event.keyCode == 13)
-                                    document.getElementById('btnWhatsApp').click()"/>
-        <button id="btnWhatsapp"
+               onkeydown = "if (event.keyCode == 13) document.getElementById('btnWhatsApp').click()"/>
+        <button id="btnWhatsApp"
                 type="button"
                 onclick="goToWhatsApp()">WhatsApp</button>
     </body>
