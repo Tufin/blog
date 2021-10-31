@@ -7,10 +7,10 @@
 
             function goToWhatsApp() {
                 const phone = refit(document.getElementById("nPhone").value);
-                if (len(phone) !== 9) {
-                    alert("Invalid number :(");
-                } else {
+                if (len(phone) === 9 && +phone !== 0) {
                     window.location.href = 'http://api.whatsapp.com/send?phone=' + getCode() + phone
+                } else {
+                    alert("Invalid Number");
                 }
             }
 
@@ -18,16 +18,16 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const code = urlParams.get('code');
                 if (code !== null && code !== "") {
-                    return code
+                    return code;
                 }
-                return "972"
+                return "972";
             }
 
             function refit(phone) {
                 if (phone.charAt(0) === "0") {
                     return phone.substring(1);
                 }
-                return phone
+                return phone;
             }
 
             function len(phone) {
